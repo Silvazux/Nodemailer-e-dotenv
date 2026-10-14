@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/estilo.css">
+    <title>Formulario</title>
+</head>
+<body>
+    <%
+        let erroValidacao = {"nome":"", "email":"", "telefone":"", "assunto":"", "mensagem":" "};
+        let msgErro = {"nome":"", "email":"", "telefone":"", "assunto":"", "mensagem":" "};
+        if(erros) {
+            erros.errors.forEach(function(erro) {
+                if (erro.path == "nome") {
+                    erroValidacao.nome = "erro",
+                    msgErro.nome = erro.msg
+                }
+                if (erro.path == "email") {
+                    erroValidacao.email = "erro",
+                    msgErro.email = erro.msg
+                }
+                if (erro.path == "telefone") {
+                    erroValidacao.telefone = "erro",
+                    msgErro.telefone = erro.msg
+                }
+                if (erro.path == "assunto") {
+                    erroValidacao.assunto = "erro",
+                    msgErro.assunto = erro.msg
+                }
+                if (erro.path == "mensagem") {
+                    erroValidacao.mensagem = "erro",
+                    msgErro.mensagem = erro.msg
+                }
+            })
+        }; 
+    %>
+
+
+
+
+    <form method="post" action="/formulario">
+
+            <label for="nome">Digite seu nome:</label><br>
+            <input type="text"  name="nome" id="nome" value="<%= valores.nome %>" class="<%= erroValidacao.nome %>"> <span><%= msgErro.nome %> </span><br>
+
+            <label for="email">Digite o e-mail pra quem vc quer mandar:</label><br>
+            <input type="text" name="email" id="email" value="<%= valores.email %>" class="<%= erroValidacao.email %>"> <span><%= msgErro.email %> </span><br>
+
+            <label for="telefone">Digite seu telefone:</label><br>
+            <input type="number" name="telefone" id="telefone" value="<%= valores.telefone %>" class="<%= erroValidacao.telefone %>"> <span><%= msgErro.telefone %> </span><br>
+
+            <label for="assunto">Qual assunto que queira tratar:</label><br>
+            <input type="text" name="assunto" id="assunto"  value="<%= valores.assunto %>" class="<%= erroValidacao.assunto %>"> <span><%= msgErro.assunto %> </span><br>
+
+            <label for="mensagem">Digite sua mensagem:</label><br>
+            <input type="text" name="mensagem" id="mensagem"  value="<%= valores.mensagem %>" class="<%= erroValidacao.mensagem %>"> <span><%= msgErro.mensagem %> </span><br>
+
+
+            <button type="submit" class="botao-enviar">Enviar</button>
+    </form>
+    
+    <% if(retorno){ %><!---caso retorno tenha conteudo  --> 
+
+        <h3>Resultado:</h3>
+        <span><%= retorno.formulario %></span>
+        
+    <% }else{ %>
+
+        <h3>Não temos dados de retorno</h3>
+
+    <% } %>
+
+
+</body>
+</html>
